@@ -1,0 +1,4 @@
+repository "AiJam@MehmetErcanOffical@cloud"
+  path "/"
+    br "/main"
+    co "/main"
