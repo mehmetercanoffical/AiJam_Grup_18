@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    // Start is called before the first frame update
+
+    public AudioSource gameSource;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPlayerActive(bool isActive)
     {
-        
+        Player.Instance.OnPlayerActive(isActive);
     }
+
+
+    public void PlaySound(AudioClip clip)
+    {
+        gameSource.clip = clip;
+        gameSource.Play();
+    }
+
 }

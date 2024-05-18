@@ -10,11 +10,10 @@ public class LevelManager : Singleton<LevelManager>
     public GameObject LoadingBar;
 
     [Header("Test or Edit Settings")]
-    public int currentTest = 3;
-
+    public bool start = false;
 
     [Header("Settings")]
-    private int _currentLevel;
+    public int currentLevel = 1;
     private Scene _lastLoadedScene;
     private const string _level = "Level ";
     public static event UnityAction<bool> OnLevelLoaded;
@@ -25,10 +24,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private void LevelLoad()
     {
-        _currentLevel = 1;
-
-         SceneLoader(currentTest.ToString());
-
+        if (start) SceneLoader(currentLevel.ToString());
     }
 
 
@@ -84,12 +80,12 @@ public class LevelManager : Singleton<LevelManager>
 
     public void SetCurrentLevel()
     {
-        _currentLevel++;
+        currentLevel++;
 
-        if (_currentLevel >= SceneManager.sceneCountInBuildSettings)
-            _currentLevel = 1;
+        if (currentLevel >= SceneManager.sceneCountInBuildSettings)
+            currentLevel = 1;
 
-        SceneLoader(_currentLevel.ToString());
+        SceneLoader(currentLevel.ToString());
     }
 
 }

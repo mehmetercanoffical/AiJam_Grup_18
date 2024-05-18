@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : Singleton<PlayerMove>
 {
-    // Start is called before the first frame update
+
+    public float speed = 5f;
+    public float jumpForce = 10f;
+    public float gravity = 9.8f;
+    public CharacterController controller;
+    public Vector3 moveDirection;
+    public bool isActive = false;
+
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (!isActive) return;
     }
 }
