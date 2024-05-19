@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -31,10 +32,19 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     public Animator playerAnim;
+    [Header("Time Point Reference")]
+    private TimePoints timePointsScript; 
+    
+    [Header("Time Cost Reference")]
+    public GameObject jumpCost_PopUp;
+
+
 
 
     private void Start()
     {
+        timePointsScript = GetComponent<TimePoints>();
+        jumpCost_PopUp.SetActive(false);
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -54,6 +64,13 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if (Input.GetKeyDown(jumpKey) && jumpReady && grounded)
+        {   
+            timePointsScript.DecreasePointsByJump(); 
+            ShowJumpCostPopUp(); // Show the jump cost pop-up above the player's head
+            StartCoroutine(HideJumpCostPopUp());
+        }
     }
     private void FixedUpdate()
     {
@@ -66,7 +83,9 @@ public class PlayerMovement : MonoBehaviour
 
         //ne zaman zıplanır
         if (Input.GetKeyDown(jumpKey) && jumpReady && grounded)
+        {
             playerAnim.SetTrigger("isJump");
+        }
     }
 
     private void MovePlayer()
@@ -116,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
         jumpReady = false;
+        GetJumpReady();
         StartCoroutine(ResetJump());
         //y ekseni 0
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -129,4 +149,27 @@ public class PlayerMovement : MonoBehaviour
         jumpReady = true;
         //playerAnim.SetBool("isJumping", false);
     }
+
+    public bool GetJumpReady()
+    {
+        return jumpReady;
+    }
+
+    void ShowJumpCostPopUp()
+    {
+        // Enable the jumpCostPopUp GameObject
+        jumpCost_PopUp.gameObject.SetActive(true);
+        
+    }
+
+
+    IEnumerator HideJumpCostPopUp()
+    {
+        // Wait for a short duration
+        yield return new WaitForSeconds(1f);
+
+        // Disable the jumpCostPopUp GameObject after the delay
+        jumpCost_PopUp.gameObject.SetActive(false);
+    }
+
 }
