@@ -66,7 +66,7 @@ public class ThirdPersonCam : MonoBehaviour
             thirdPersonCam.SetActive(false);
 
             if (newStyle == CameraStyle.Basic) thirdPersonCam.SetActive(true);
-            if (newStyle == CameraStyle.Combat) thirdPersonCam.SetActive(true);
+            if (newStyle == CameraStyle.Combat) combatCam.SetActive(true);
 
             currentStyle = newStyle;
         }
