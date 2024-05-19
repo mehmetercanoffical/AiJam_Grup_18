@@ -2,25 +2,33 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TreeLeavesABCD_AS
   m_Shader: {fileID: 4800000, guid: ad3ec30af724e1942ae5148469c6bf88, type: 3}
-  m_ShaderKeywords: _SWITCHCOLUMN_ON _SWITCHROW_ON _WORLDSPACEOFFSET1_ON _WORLDSPACEOFFSET_ON
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _SWITCHCOLUMN_ON
+  - _SWITCHROW_ON
+  - _WORLDSPACEOFFSET1_ON
+  - _WORLDSPACEOFFSET_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo_MaskA:
-        m_Texture: {fileID: 2800000, guid: c92c8f39af8b6fc48b95b267a0c083a2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7f4f7879a0ea5ea48ad0e1c9e82db454, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo_MaskA1:
@@ -95,9 +103,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
     - _BumpScale: 1
+    - _CustomColorAmount: 0
     - _Cutoff: 0.33
     - _DarknessOnSundown: 1
     - _DarknessOnSundown1: 0.631
@@ -143,9 +153,12 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CustomColorHigh: {r: 0.5528651, g: 0.875, b: 0.4503677, a: 0}
+    - _CustomColorLow: {r: 0.13624567, g: 0.33088237, b: 0.13758796, a: 0}
     - _Diffusion_asset: {r: 2.2888926e+38, g: 1.2389358e-26, b: 7.69327e-37, a: 0.00018220427}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.08823532, g: 0.08823532, b: 0.08823532, a: 0}
     - _SpecularColour: {r: 0.31617647, g: 0.19528547, b: 0.19528547, a: 0}
     - _SpecularTone: {r: 0.05882353, g: 0.0566609, b: 0.0566609, a: 0}
     - _SpecularTone1: {r: 0.058823504, g: 0.056660876, b: 0.056660876, a: 0}
+  m_BuildTextureStacks: []
