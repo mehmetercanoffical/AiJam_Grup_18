@@ -52,8 +52,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        //Debug.Log(grounded);
-        //zemin var mı
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, isThisGround);
 
         MyInput();
@@ -146,7 +144,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(jumpCooldown);
         jumpReady = true;
-        //playerAnim.SetBool("isJumping", false);
     }
 
     public bool GetJumpReady()

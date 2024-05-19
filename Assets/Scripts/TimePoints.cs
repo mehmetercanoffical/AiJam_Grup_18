@@ -19,7 +19,7 @@ public class TimePoints : MonoBehaviour
 
     public void SetMaxHealth(float health)
     {
-        healthSlider.maxValue = health;
+        healthSlider.maxValue = health; 
         healthSlider.value = health;
     }
     public void SetHealth(float health)
