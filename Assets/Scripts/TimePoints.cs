@@ -1,21 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.UI;
+using UnityEngine.UI;
 using TMPro;
 
 public class TimePoints : MonoBehaviour
 {
-    public float timePoints = 180f;
+    public float health = 180f;
+    public float timePoints;
     public TMP_Text timePointsText;
 
     public float jumpCost = 5f;
 
     private bool isCountingDown = true;
-    // Start is called before the first frame update
+    
+    // Reference to the Slider component for the health bar
+    public Slider healthSlider;
+
+    public void SetMaxHealth(float health)
+    {
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
+    }
+    public void SetHealth(float health)
+    {
+        healthSlider.value = health;
+    }
+    
     void Start()
     {
-
+        timePoints = health;
+        SetMaxHealth(health);
         StartCoroutine(DecreaseTimePoints());
     }
 
@@ -24,9 +39,9 @@ public class TimePoints : MonoBehaviour
     {
         if (timePointsText != null)
         {
-            timePointsText.text = "Time Points " + Mathf.Ceil(timePoints).ToString();
+            timePointsText.text = Mathf.Ceil(timePoints).ToString();
         }
-
+        SetHealth(timePoints);
     }
     
 
@@ -45,6 +60,8 @@ public class TimePoints : MonoBehaviour
                 OnTimePointsDepleted();
             }
         }
+        SetHealth(timePoints);
+
     }
     public void DecreasePointsByJump()
     {
@@ -60,8 +77,9 @@ public class TimePoints : MonoBehaviour
         // Update UI text
         if (timePointsText != null)
         {
-            timePointsText.text = "Time Points: " + Mathf.Ceil(timePoints).ToString();
+            timePointsText.text = Mathf.Ceil(timePoints).ToString();
         }
+        SetHealth(timePoints);
     }
 
 
