@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float RotationCamera = 5f;
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -29,12 +30,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
 
     private Rigidbody rb;
-    private Animator playerAnim;
+    public Animator playerAnim;
 
 
     private void Start()
     {
-        playerAnim = GetComponent<Animator>();
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         jumpReady = true;
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
 
         //hızlanma
-        if(grounded)
+        if (grounded)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
@@ -64,13 +65,13 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         //ne zaman zıplanır
-        if(Input.GetKey(jumpKey) && jumpReady && grounded)
+        if (Input.GetKey(jumpKey) && jumpReady && grounded)
         {
             Debug.Log("isJumping");
-            jumpReady = false;
-            playerAnim.SetBool("isJumping", true);
             Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
+            jumpReady = false;
+            StartCoroutine(ResetJump());
+            //Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
@@ -78,15 +79,31 @@ public class PlayerMovement : MonoBehaviour
     {
         //Hareket yönü
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        RotationCharackterByCamera();
+        if (verticalInput != 0 || horizontalInput != 0)
+            playerAnim.SetBool("isRunning", true);
+        else
+            playerAnim.SetBool("isRunning", false);
 
-        if(grounded){
+        if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         }
 
-        else if(!grounded)
+        else if (!grounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMult, ForceMode.Force);
         }
+    }
+
+    public void RotationCharackterByCamera()
+    {
+
+        float horizontal = Input.GetAxis("Mouse X");
+        Quaternion quaternion = Quaternion.AngleAxis(horizontal * RotationCamera, Vector3.up);
+        transform.rotation = orientation.transform.rotation * quaternion;
+        //transform.Rotate(Vector3.up * horizontal * RotationCamera);
+
     }
 
     private void SpeedControl()
@@ -94,24 +111,29 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         //hızlanmayı limitle
-        if(flatVelocity.magnitude > moveSpeed)
+        if (flatVelocity.magnitude > moveSpeed)
         {
             Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
         }
+
     }
 
     private void Jump()
     {
         //y ekseni 0
+        playerAnim.SetTrigger("isJump");
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        
     }
 
-    private void ResetJump()
+
+    IEnumerator ResetJump()
     {
-        playerAnim.SetBool("isJumping", false);
+        yield return new WaitForSeconds(jumpCooldown);
         jumpReady = true;
+        //playerAnim.SetBool("isJumping", false);
+
+        ResetJump();
     }
 }
