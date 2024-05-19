@@ -29,7 +29,7 @@ public class LevelManager : Singleton<LevelManager>
 
 
 
-    void SceneLoader(string sceneName)
+    public void SceneLoader(string sceneName)
     {
 
         if (LoadingBar != null) LoadingBar.SetActive(true);
