@@ -65,14 +65,8 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         //ne zaman zıplanır
-        if (Input.GetKey(jumpKey) && jumpReady && grounded)
-        {
-            Debug.Log("isJumping");
-            Jump();
-            jumpReady = false;
-            StartCoroutine(ResetJump());
-            //Invoke(nameof(ResetJump), jumpCooldown);
-        }
+        if (Input.GetKeyDown(jumpKey) && jumpReady && grounded)
+            playerAnim.SetTrigger("isJump");
     }
 
     private void MovePlayer()
@@ -119,10 +113,11 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void Jump()
+    public void Jump()
     {
+        jumpReady = false;
+        StartCoroutine(ResetJump());
         //y ekseni 0
-        playerAnim.SetTrigger("isJump");
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -133,7 +128,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(jumpCooldown);
         jumpReady = true;
         //playerAnim.SetBool("isJumping", false);
-
-        ResetJump();
     }
 }
