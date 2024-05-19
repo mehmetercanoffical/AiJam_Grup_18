@@ -69,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
         {   
             timePointsScript.DecreasePointsByJump(); 
             ShowJumpCostPopUp(); // Show the jump cost pop-up above the player's head
-            StartCoroutine(HideJumpCostPopUp());
         }
     }
     private void FixedUpdate()
@@ -159,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Enable the jumpCostPopUp GameObject
         jumpCost_PopUp.gameObject.SetActive(true);
+        StartCoroutine(HideJumpCostPopUp());
         
     }
 
