@@ -903,7 +903,6 @@ MonoBehaviour:
   sentences:
   - Hi, I am Dialog 2
   - what do you want
-  index: 0
   typingSpeed: 0.1
   Panel: {fileID: 1228958702}
 --- !u!114 &1058556936
@@ -918,7 +917,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228fcca3bd73d1848952b623d19dc0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogs: {fileID: 0}
 --- !u!1 &1228958702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,7 +1144,6 @@ MonoBehaviour:
   sentences:
   - Hi, I am Dialog 1
   - How do you do
-  index: 0
   typingSpeed: 0.1
   Panel: {fileID: 1228958702}
 --- !u!114 &1468743180
@@ -1161,7 +1158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228fcca3bd73d1848952b623d19dc0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogs: {fileID: 0}
 --- !u!1 &1590650009
 GameObject:
   m_ObjectHideFlags: 0
