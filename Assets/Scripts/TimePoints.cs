@@ -9,10 +9,13 @@ public class TimePoints : MonoBehaviour
     public float timePoints = 180f;
     public TMP_Text timePointsText;
 
+    public float jumpCost = 5f;
+
     private bool isCountingDown = true;
     // Start is called before the first frame update
     void Start()
     {
+
         StartCoroutine(DecreaseTimePoints());
     }
 
@@ -23,7 +26,9 @@ public class TimePoints : MonoBehaviour
         {
             timePointsText.text = "Time Points " + Mathf.Ceil(timePoints).ToString();
         }
+
     }
+    
 
     IEnumerator DecreaseTimePoints()
     {
@@ -41,6 +46,24 @@ public class TimePoints : MonoBehaviour
             }
         }
     }
+    public void DecreasePointsByJump()
+    {
+        // Decrease points by 5
+        timePoints -= jumpCost;
+
+        // Ensure timePoints doesn't go below 0
+        if (timePoints < 0)
+        {
+            timePoints = 0;
+        }
+
+        // Update UI text
+        if (timePointsText != null)
+        {
+            timePointsText.text = "Time Points: " + Mathf.Ceil(timePoints).ToString();
+        }
+    }
+
 
     void OnTimePointsDepleted()
     {
