@@ -950,6 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5541172a882640649b82e29a63e8cb5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSource: {fileID: 0}
 --- !u!4 &1542875897
 Transform:
   m_ObjectHideFlags: 0
@@ -1071,9 +1072,9 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1542875897}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1786768128}
   - {fileID: 339472768}
-  - {fileID: 1542875897}
