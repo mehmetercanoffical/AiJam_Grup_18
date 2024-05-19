@@ -585,8 +585,8 @@ Transform:
   m_GameObject: {fileID: 1879964950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.28, y: 5.81, z: -2.15}
-  m_LocalScale: {x: 1.1766981, y: 1.1766981, z: 1.1766981}
+  m_LocalPosition: {x: -15.76, y: 5.81, z: 9.82}
+  m_LocalScale: {x: 1.0796205, y: 1.0796205, z: 1.0796205}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -653,6 +653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8770202879307251274, guid: 88a0b7fd7565f3f458b40d9b646cb36b,
+        type: 3}
+      propertyPath: speed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -721,6 +726,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Castle Guard 02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937632203052937106, guid: 1f16e0fba14e2114285073afb6c393a0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658110082901790971, guid: 1f16e0fba14e2114285073afb6c393a0,
+        type: 3}
+      propertyPath: speed
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

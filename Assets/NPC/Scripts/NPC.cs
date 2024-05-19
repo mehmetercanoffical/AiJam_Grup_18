@@ -14,11 +14,28 @@ public class NPC : MonoBehaviour
     public Rigidbody rb;
 
     public bool isAttacking = false;
+    public float rotationSpeed = .1f;
 
     void Update()
     {
         SearchPlayer();
+        WalkToTarget();
         Attack();
+    }
+
+    public void WalkToTarget()
+    {
+        if (Target == null) return;
+
+        Vector3 direction = Target.position - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), rotationSpeed);
+        if (Vector3.Distance(transform.position, Target.position) > distancePosition)
+        {
+            Animator.SetBool("isWalking", true);
+            transform.Translate(new Vector3(direction.x, 0, direction.z) * speed * Time.deltaTime);
+        }
+        else
+            Animator.SetBool("isWalking", false);
     }
 
     public void Attack()
@@ -39,8 +56,10 @@ public class NPC : MonoBehaviour
         isAttacking = false;
         Debug.Log("Stop Attack");
     }
+
     public void SearchPlayer()
     {
+        if (Target != null) return;
         if (Target != null) return;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, distance);
@@ -50,12 +69,7 @@ public class NPC : MonoBehaviour
             if (collider.tag == "Player")
             {
                 Target = collider.GetComponent<Transform>();
-                Vector3 direction = collider.transform.position - transform.position;
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.y, 0, direction.z)), 0.1f);
-                transform.Translate(new Vector3(direction.x, 0, direction.z) * speed * Time.deltaTime);
-                //rb.MovePosition(direction * speed * Time.deltaTime);
 
-                Animator.SetBool("isWalking", true);
             }
         }
     }
