@@ -1,12 +1,10 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class FireGun : MonoBehaviour
 {
-    public float range = 100f; // Menzil
-    public float damage = 10f; // Hasar
-    public Camera thirdPersonCam; // Üçüncü Þahýs Kamera
-    //public GameObject impactEffect; // Çarpma efekti
+    public float damageTime = 0.02F;
+    public float range = 100f;
+    public Camera thirdPersonCam;
     public LayerMask ignoreLayerMask;
     public Animator animator;
 
@@ -26,6 +24,7 @@ public class FireGun : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, range, ~ignoreLayerMask))
         {
+            if (hit.transform.tag != "NPC") return;
             target = hit.transform;
             animator.SetTrigger("Attack");
         }
@@ -36,9 +35,8 @@ public class FireGun : MonoBehaviour
 
         if (target != null)
         {
-            //Target targetS = hit.transform.GetComponent<Target>();
-            Debug.Log("Hit " + target.gameObject.name);
-            //targetS.TakeDamage(damage);
+            Destroy(target.gameObject);
+            target = null;
         }
 
         // Çarpma efekti oluþtur

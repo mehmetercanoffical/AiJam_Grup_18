@@ -15,26 +15,17 @@ public class LevelManager : Singleton<LevelManager>
     [Header("Settings")]
     public int currentLevel = 1;
     private Scene _lastLoadedScene;
-    private const string _level = "Level ";
     public static event UnityAction<bool> OnLevelLoaded;
 
 
 
-    private void Awake() => LevelLoad();
-
-    private void LevelLoad()
-    {
-        if (start) SceneLoader(currentLevel.ToString());
-    }
 
 
 
     public void SceneLoader(string sceneName)
     {
 
-        if (LoadingBar != null) LoadingBar.SetActive(true);
-
-        StartCoroutine(SceneController(_level + sceneName));
+        StartCoroutine(SceneController(sceneName.ToString()));
     }
   
 
@@ -74,7 +65,6 @@ public class LevelManager : Singleton<LevelManager>
     }
 
     public void NextLevel() => SetCurrentLevel();
-    public void RestartLevel() => LevelLoad();
 
 
 

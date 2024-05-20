@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class TimePoints : Singleton<TimePoints>
+public class TimePoints : MonoBehaviour
 {
     public float health = 180f;
     public float timePoints;

@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     public Animator playerAnim;
     [Header("Time Point Reference")]
-    private TimePoints timePointsScript; 
-    
+    private TimePoints timePointsScript;
+
     [Header("Time Cost Reference")]
     public GameObject jumpCost_PopUp;
 
@@ -43,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        timePointsScript = GetComponent<TimePoints>();
+        if (gameObject.GetComponent<TimePoints>() != null)
+            timePointsScript = gameObject.GetComponent<TimePoints>();
         jumpCost_PopUp.SetActive(false);
 
         rb = GetComponent<Rigidbody>();
@@ -64,8 +65,9 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 0;
 
         if (Input.GetKeyDown(jumpKey) && jumpReady && grounded)
-        {   
-            timePointsScript.DecreasePointsByJump(5); 
+        {
+            if (gameObject.GetComponent<TimePoints>() != null)
+                timePointsScript.DecreasePointsByJump(5);
             ShowJumpCostPopUp(); // Show the jump cost pop-up above the player's head
         }
     }
@@ -89,15 +91,22 @@ public class PlayerMovement : MonoBehaviour
     {
         //Hareket yönü
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+         
+
+
         RotationCharackterByCamera();
         if (verticalInput != 0 || horizontalInput != 0)
+        {
             playerAnim.SetBool("isRunning", true);
+        }
         else
             playerAnim.SetBool("isRunning", false);
 
         if (grounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
         }
 
         else if (!grounded)
@@ -156,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
         // Enable the jumpCostPopUp GameObject
         jumpCost_PopUp.gameObject.SetActive(true);
         StartCoroutine(HideJumpCostPopUp());
-        
+
     }
 
 

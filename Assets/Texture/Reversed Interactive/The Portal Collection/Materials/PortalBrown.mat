@@ -41,13 +41,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_33A94334: -0.22
-    - Vector1_51108891: 473.51
+    - Vector1_33A94334: -36.2
+    - Vector1_51108891: 30.37
     - Vector1_B4F5C8D5: 0
     - Vector1_C9FD7FCE: 1.13
     - Vector1_D4D30E56: 0.22
     m_Colors:
-    - Color_D9AD4C99: {r: 0.3207547, g: 0.26560462, b: 0.09622638, a: 1}
+    - Color_D9AD4C99: {r: 0.93710685, g: 0.93710685, b: 0.93710685, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1006488873155501847
 MonoBehaviour:

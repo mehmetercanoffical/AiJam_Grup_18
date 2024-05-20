@@ -13,4 +13,14 @@ public class HourglassPickup : MonoBehaviour
         // Rotate the pickup around its y-axis
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if the player collided with the pickup
+        if (other.gameObject.CompareTag("Player"))
+        {
+            TimeController.Instance.AddTime(timeToAdd);
+            Destroy(gameObject);
+        }
+    }   
 }

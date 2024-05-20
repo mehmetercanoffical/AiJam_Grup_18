@@ -16,7 +16,7 @@ public class NPC : MonoBehaviour
     public bool isAttacking = false;
     public float rotationSpeed = .1f;
 
-    void Update()
+    void LateUpdate()
     {
         SearchPlayer();
         WalkToTarget();
@@ -28,11 +28,13 @@ public class NPC : MonoBehaviour
         if (Target == null) return;
 
         Vector3 direction = Target.position - transform.position;
+        direction.Normalize();
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), rotationSpeed);
         if (Vector3.Distance(transform.position, Target.position) > distancePosition)
         {
             Animator.SetBool("isWalking", true);
-            transform.Translate(new Vector3(direction.x, 0, direction.z) * speed * Time.deltaTime);
+            Vector3 vector3 = new Vector3(direction.x, 0, direction.z);
+            transform.Translate(vector3 * speed * Time.deltaTime);
         }
         else
             Animator.SetBool("isWalking", false);

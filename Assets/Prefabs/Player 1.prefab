@@ -26,16 +26,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860460834682033432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.301}
+  m_LocalScale: {x: 0.33481428, y: 0.33481428, z: 0.33481428}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2006039832098844707}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -185.2, y: 2.05}
-  m_SizeDelta: {x: 1.2000122, y: -1.6999997}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0.90218645, y: 1}
+  m_AnchoredPosition: {x: -0.031999946, y: -1.29}
+  m_SizeDelta: {x: 0.19534707, y: 1.0000172}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5729047293715699157
 CanvasRenderer:
@@ -92,12 +92,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
+  m_fontSize: 1.75
   m_fontSizeBase: 0.2
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
+  m_fontSizeMax: 53.9
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -364.7798, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.08965886, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -336,8 +336,8 @@ GameObject:
   - component: {fileID: 865005770595191220}
   - component: {fileID: 6502303006431038225}
   - component: {fileID: 4373684071520021686}
-  - component: {fileID: 4480328471020378518}
   - component: {fileID: 2284367856987140778}
+  - component: {fileID: 5867864360564237296}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationCamera: 2
-  moveSpeed: 4
+  moveSpeed: 7
   groundDrag: 6
   jumpForce: 15
   jumpCooldown: 1
@@ -416,24 +416,6 @@ MonoBehaviour:
   orientation: {fileID: 7511805052807029355}
   playerAnim: {fileID: 23924717978694617}
   jumpCost_PopUp: {fileID: 7873764379650402156}
---- !u!114 &4480328471020378518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5006145537050667758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a38386b228bff604995c64442e19dcd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 180
-  timePoints: 180
-  timePointsText: {fileID: 0}
-  jumpCost: 5
-  healthSlider: {fileID: 0}
-  keyImages: []
 --- !u!114 &2284367856987140778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,13 +428,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9b3a19f0ebeeb49b366f4d39fa1b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageTime: 0.02
   range: 100
-  damage: 10
   thirdPersonCam: {fileID: 9039480585179320037}
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 64
   animator: {fileID: 23924717978694617}
+--- !u!114 &5867864360564237296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006145537050667758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37a2e3209a02ee4ea186b91e77bb094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timePoints: 90
+  timePointsText: {fileID: 0}
+  jumpCost: 5
+  healthSlider: {fileID: 0}
+  keyImages: []
 --- !u!1 &7873764379650402156
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2006039832098844707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -481,7 +480,7 @@ RectTransform:
   m_GameObject: {fileID: 7873764379650402156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3005329, y: 0.3005329, z: 0.3005329}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9052209497379567294}
@@ -489,8 +488,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.8, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_AnchoredPosition: {x: 0, y: 2.312}
+  m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &711412286384288548
 Canvas:
@@ -502,7 +501,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 9039480585179320037}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -583,7 +582,7 @@ Transform:
   m_GameObject: {fileID: 8588343118821470177}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052616, y: -0, z: -0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 2.52, z: -2.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -604,8 +603,8 @@ MonoBehaviour:
   Player: {fileID: 865005770595191220}
   smoothSpeed: 3
   switchSpeed: 2
-  MainCameraOffset: {x: 0, y: 4.19, z: -4}
-  CombatCameraOffset: {x: 2, y: 4, z: 4}
+  MainCameraOffset: {x: 0, y: 4, z: -4}
+  CombatCameraOffset: {x: 1, y: 4, z: -1}
   MainCamera: {fileID: 6149070106653064515}
   CombatCamera: {fileID: 6049706915924832827}
   currentStyle: 1

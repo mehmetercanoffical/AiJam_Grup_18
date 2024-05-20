@@ -8,6 +8,8 @@ TagManager:
   - Key1
   - Key2
   - Key
+  - NPC
+  - anahtar
   layers:
   - Default
   - TransparentFX
