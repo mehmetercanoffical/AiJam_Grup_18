@@ -1,21 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.UI;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TimePoints : MonoBehaviour
 {
-    public float timePoints = 180f;
+    public float health = 180f;
+    public float timePoints;
     public TMP_Text timePointsText;
 
     public float jumpCost = 5f;
 
     private bool isCountingDown = true;
-    // Start is called before the first frame update
+    
+    // Reference to the Slider componenor the health bar
+    public Slider healthSlider;
+
+    // Key for saving time points in PlayerPrefs
+    private const string TimePointsKey = "TimePoints";
+
+    [Header("Key Stuff")]
+    int keyIndex = 0;
+    string keyName = "Key";
+    public GameObject[] keyImages;
+    public void SetMaxHealth(float health)
+    {
+        healthSlider.maxValue = health; 
+        healthSlider.value = health;
+    }
+    public void SetHealth(float health)
+    {
+        healthSlider.value = health;
+    }
+    
     void Start()
     {
-
+        timePoints = PlayerPrefs.GetFloat(TimePointsKey, health);
+        keyIndex = PlayerPrefs.GetInt(keyName, 0);
+        //timePoints = health;
+        SetMaxHealth(health);
+        SetHealth(timePoints);
         StartCoroutine(DecreaseTimePoints());
     }
 
@@ -24,9 +50,9 @@ public class TimePoints : MonoBehaviour
     {
         if (timePointsText != null)
         {
-            timePointsText.text = "Time Points " + Mathf.Ceil(timePoints).ToString();
+            timePointsText.text = Mathf.Ceil(timePoints).ToString();
         }
-
+        SetHealth(timePoints);
     }
     
 
@@ -38,6 +64,10 @@ public class TimePoints : MonoBehaviour
             yield return new WaitForSeconds(1f);
             timePoints -= 1f;
 
+            // Save the updated time points
+            PlayerPrefs.SetFloat(TimePointsKey, timePoints);
+            PlayerPrefs.Save();
+
             // Check if time points have reached zero
             if (timePoints <= 0)
             {
@@ -45,6 +75,7 @@ public class TimePoints : MonoBehaviour
                 OnTimePointsDepleted();
             }
         }
+        SetHealth(timePoints);
     }
     public void DecreasePointsByJump()
     {
@@ -60,10 +91,27 @@ public class TimePoints : MonoBehaviour
         // Update UI text
         if (timePointsText != null)
         {
-            timePointsText.text = "Time Points: " + Mathf.Ceil(timePoints).ToString();
+            timePointsText.text = Mathf.Ceil(timePoints).ToString();
         }
+        SetHealth(timePoints);
+
+        // Save the updated time points
+        SaveTimePoints();
     }
 
+    public void AddTime(float timeToAdd)
+    {
+        Debug.Log("puan eklendi.");
+        timePoints += timeToAdd;
+        SaveTimePoints();
+    }
+
+    void SaveTimePoints()
+    {
+        // Save time points to PlayerPrefs
+        PlayerPrefs.SetFloat(TimePointsKey, timePoints);
+        PlayerPrefs.Save();
+    }
 
     void OnTimePointsDepleted()
     {
@@ -72,5 +120,38 @@ public class TimePoints : MonoBehaviour
         isCountingDown = false;
 
         // You can add additional actions here, like ending the game or triggering an event
+        // Load the Game Over scene
+        SceneManager.LoadScene("gameOver");
+    }
+
+    private void OnApplicationQuit()
+    {
+        // Save time points when the application quits
+        SaveTimePoints();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Pickup"))
+        {
+                HourglassPickup pickup = other.GetComponent<HourglassPickup>();
+                Debug.Log("Adding time to TimePoints.");
+                float timeToAdd = pickup.timeToAdd;
+                AddTime(timeToAdd);
+
+                // Destroy the hourglass pickup object
+                Destroy(other.gameObject);
+            
+        }
+
+        if (other.CompareTag("Key"))
+        {
+            keyIndex++;
+            if (keyIndex < keyImages.Length)
+                keyImages[keyIndex].SetActive(true);
+
+            PlayerPrefs.SetInt(keyName, keyIndex);
+            Destroy(other.gameObject);
+        }
     }
 }

@@ -45,11 +45,31 @@ public class PortalTravel : MonoBehaviour
             // Check if the scene name is valid
             if (!string.IsNullOrEmpty(sceneNameToLoad) && Application.CanStreamedLevelBeLoaded(sceneNameToLoad))
             {
+                // Save data to PlayerPrefs before changing the scene
+                SaveData();
+
                 SceneManager.LoadScene(sceneNameToLoad);
             }
             else
             {
                 Debug.LogError("Scene " + sceneNameToLoad + " cannot be found in the build settings.");
+            }
+        }
+    }
+
+    // Method to save necessary data to PlayerPrefs
+    private void SaveData()
+    {
+        //reference to the TimePoints script attached to the Player object
+        GameObject playerObject = GameObject.FindWithTag(targetTag);
+        if (playerObject != null)
+        {
+            TimePoints timePointsScript = playerObject.GetComponent<TimePoints>();
+            if (timePointsScript != null)
+            {
+                // Save the timePoints value to PlayerPrefs
+                PlayerPrefs.SetFloat("TimePoints", timePointsScript.timePoints);
+                PlayerPrefs.Save();
             }
         }
     }
