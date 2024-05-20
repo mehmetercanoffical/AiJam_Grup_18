@@ -151,6 +151,7 @@ public class TimePoints : MonoBehaviour
                 keyImages[keyIndex].SetActive(true);
 
             PlayerPrefs.SetInt(keyName, keyIndex);
+            PlayerPrefs.Save();
             Destroy(other.gameObject);
         }
     }
