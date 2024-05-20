@@ -20,6 +20,11 @@ public class TimePoints : MonoBehaviour
 
     // Key for saving time points in PlayerPrefs
     private const string TimePointsKey = "TimePoints";
+
+    [Header("Key Stuff")]
+    int keyIndex = 0;
+    string keyName = "Key";
+    public GameObject[] keyImages;
     public void SetMaxHealth(float health)
     {
         healthSlider.maxValue = health; 
@@ -33,6 +38,7 @@ public class TimePoints : MonoBehaviour
     void Start()
     {
         timePoints = PlayerPrefs.GetFloat(TimePointsKey, health);
+        keyIndex = PlayerPrefs.GetInt(keyName, 0);
         //timePoints = health;
         SetMaxHealth(health);
         SetHealth(timePoints);
@@ -136,6 +142,16 @@ public class TimePoints : MonoBehaviour
                 // Destroy the hourglass pickup object
                 Destroy(other.gameObject);
             
+        }
+
+        if (other.CompareTag("Key"))
+        {
+            keyIndex++;
+            if (keyIndex < keyImages.Length)
+                keyImages[keyIndex].SetActive(true);
+
+            PlayerPrefs.SetInt(keyName, keyIndex);
+            Destroy(other.gameObject);
         }
     }
 }

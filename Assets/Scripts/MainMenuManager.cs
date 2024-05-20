@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    private const string TimePointsKey = "TimePoints";
     public void StartNewGame()
     {
-        // Reset only the timePoints PlayerPrefs
-        PlayerPrefs.DeleteKey(TimePointsKey);
+        // Reset PlayerPrefs
+        PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
         // Get the index of the current scene
