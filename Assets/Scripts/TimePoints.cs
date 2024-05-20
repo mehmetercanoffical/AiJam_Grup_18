@@ -38,7 +38,7 @@ public class TimePoints : MonoBehaviour
     void Start()
     {
         timePoints = PlayerPrefs.GetFloat(TimePointsKey, health);
-        keyIndex = PlayerPrefs.GetInt(keyName, 0);
+        keyIndex = PlayerPrefs.GetInt("Key", -1);
         //timePoints = health;
         SetMaxHealth(health);
         SetHealth(timePoints);
