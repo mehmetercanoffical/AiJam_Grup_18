@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TimePoints : MonoBehaviour
@@ -14,9 +15,11 @@ public class TimePoints : MonoBehaviour
 
     private bool isCountingDown = true;
     
-    // Reference to the Slider component for the health bar
+    // Reference to the Slider componenor the health bar
     public Slider healthSlider;
 
+    // Key for saving time points in PlayerPrefs
+    private const string TimePointsKey = "TimePoints";
     public void SetMaxHealth(float health)
     {
         healthSlider.maxValue = health; 
@@ -29,8 +32,10 @@ public class TimePoints : MonoBehaviour
     
     void Start()
     {
-        timePoints = health;
+        timePoints = PlayerPrefs.GetFloat(TimePointsKey, health);
+        //timePoints = health;
         SetMaxHealth(health);
+        SetHealth(timePoints);
         StartCoroutine(DecreaseTimePoints());
     }
 
@@ -53,6 +58,10 @@ public class TimePoints : MonoBehaviour
             yield return new WaitForSeconds(1f);
             timePoints -= 1f;
 
+            // Save the updated time points
+            PlayerPrefs.SetFloat(TimePointsKey, timePoints);
+            PlayerPrefs.Save();
+
             // Check if time points have reached zero
             if (timePoints <= 0)
             {
@@ -61,7 +70,6 @@ public class TimePoints : MonoBehaviour
             }
         }
         SetHealth(timePoints);
-
     }
     public void DecreasePointsByJump()
     {
@@ -80,8 +88,24 @@ public class TimePoints : MonoBehaviour
             timePointsText.text = Mathf.Ceil(timePoints).ToString();
         }
         SetHealth(timePoints);
+
+        // Save the updated time points
+        SaveTimePoints();
     }
 
+    public void AddTime(float timeToAdd)
+    {
+        Debug.Log("puan eklendi.");
+        timePoints += timeToAdd;
+        SaveTimePoints();
+    }
+
+    void SaveTimePoints()
+    {
+        // Save time points to PlayerPrefs
+        PlayerPrefs.SetFloat(TimePointsKey, timePoints);
+        PlayerPrefs.Save();
+    }
 
     void OnTimePointsDepleted()
     {
@@ -90,5 +114,28 @@ public class TimePoints : MonoBehaviour
         isCountingDown = false;
 
         // You can add additional actions here, like ending the game or triggering an event
+        // Load the Game Over scene
+        SceneManager.LoadScene("gameOver");
+    }
+
+    private void OnApplicationQuit()
+    {
+        // Save time points when the application quits
+        SaveTimePoints();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Pickup"))
+        {
+                HourglassPickup pickup = other.GetComponent<HourglassPickup>();
+                Debug.Log("Adding time to TimePoints.");
+                float timeToAdd = pickup.timeToAdd;
+                AddTime(timeToAdd);
+
+                // Destroy the hourglass pickup object
+                Destroy(other.gameObject);
+            
+        }
     }
 }

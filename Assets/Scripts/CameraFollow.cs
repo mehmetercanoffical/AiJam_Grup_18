@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class CameraFollow : Singleton<CameraFollow>
+public class CameraFollow : MonoBehaviour
 {
+    
     public Transform Player;
     public float smoothSpeed = 0.125f;
     public float speed = 0.125f;
@@ -36,6 +37,8 @@ public class CameraFollow : Singleton<CameraFollow>
         SwitchCameraStyle(CameraStyle.Basic);
     }
 
+
+
     private void LateUpdate()
     {
         // Rotate Camera with Mouse X and Y
@@ -44,18 +47,18 @@ public class CameraFollow : Singleton<CameraFollow>
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -35f, 60f); // Dikey dönüþ açýsýný sýnýrla
+        xRotation = Mathf.Clamp(xRotation, -35f, 60f); // Dikey dï¿½nï¿½ï¿½ aï¿½ï¿½sï¿½nï¿½ sï¿½nï¿½rla
 
         yRotation += mouseX;
 
-        // Kamerayý oyuncunun etrafýnda döndür
+        // Kamerayï¿½ oyuncunun etrafï¿½nda dï¿½ndï¿½r
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
 
-        //// Kamerayý oyuncunun arkasýna ve yukarýsýna yerleþtir
+        //// Kamerayï¿½ oyuncunun arkasï¿½na ve yukarï¿½sï¿½na yerleï¿½tir
         //Vector3 targetPosition = Player.position - transform.forward * distance + Vector3.up * verticalOffset;
         //transform.position = targetPosition;
 
-        // Oyuncunun yönünü kameranýn yönüne hizala (isteðe baðlý)        Player.rotation = Quaternion.Euler(0f, yRotation, 0f);
+        // Oyuncunun yï¿½nï¿½nï¿½ kameranï¿½n yï¿½nï¿½ne hizala (isteï¿½e baï¿½lï¿½)        Player.rotation = Quaternion.Euler(0f, yRotation, 0f);
 
 
         if (currentStyle == CameraStyle.Basic)
@@ -79,12 +82,13 @@ public class CameraFollow : Singleton<CameraFollow>
 
     }
 
-    void SwitchCameraStyle(CameraStyle newStyle)
+
+     void SwitchCameraStyle(CameraStyle newStyle)
     {
         currentStyle = newStyle;
         if (currentStyle == CameraStyle.Basic) StartCoroutine(ChangeController(MainCamera, (speed / 10000)));
         else StartCoroutine(ChangeController(CombatCamera, speed));
-    }
+    } 
 
     IEnumerator ChangeController(Transform position, float spd)
     {
