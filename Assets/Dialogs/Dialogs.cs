@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Dialogs : MonoBehaviour
 {
@@ -55,6 +56,13 @@ public class Dialogs : MonoBehaviour
             TextDisplay.text = string.Empty;
             index = 0;
         }
+    }
+
+    internal void Reset()
+    {
+        Panel.SetActive(false);
+        TextDisplay.text = string.Empty;
+        index = 0;
     }
 }
 

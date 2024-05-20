@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(jumpKey) && jumpReady && grounded)
         {   
-            timePointsScript.DecreasePointsByJump(); 
+            timePointsScript.DecreasePointsByJump(5); 
             ShowJumpCostPopUp(); // Show the jump cost pop-up above the player's head
         }
     }

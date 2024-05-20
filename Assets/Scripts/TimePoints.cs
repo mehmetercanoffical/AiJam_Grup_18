@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class TimePoints : MonoBehaviour
+public class TimePoints : Singleton<TimePoints>
 {
     public float health = 180f;
     public float timePoints;
@@ -77,10 +77,10 @@ public class TimePoints : MonoBehaviour
         }
         SetHealth(timePoints);
     }
-    public void DecreasePointsByJump()
+    public void DecreasePointsByJump(int cost)
     {
         // Decrease points by 5
-        timePoints -= jumpCost;
+        timePoints -= cost;
 
         // Ensure timePoints doesn't go below 0
         if (timePoints < 0)

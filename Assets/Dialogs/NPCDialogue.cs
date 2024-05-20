@@ -6,10 +6,12 @@ using UnityEngine;
 public class NPCDialogue : MonoBehaviour
 {
     Dialogs dialogs;
+    public Animator animator;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            animator.SetBool("talk", true);
             dialogs = gameObject.GetComponent<Dialogs>();
             dialogs.StartConversation();
         }
@@ -24,5 +26,15 @@ public class NPCDialogue : MonoBehaviour
                 dialogs.Next();
             }
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            animator.SetBool("talk", false);
+
+            dialogs.Reset();
+        }   
     }
 }
